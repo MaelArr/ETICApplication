@@ -33,17 +33,11 @@ const LogIn = ({navigation}, props) => {
               color="#FF1A6C"
               fontColor="white"
             />
-            <FlatButton
-              onPress={() => navigation.navigate("")}
-              text="Vous êtes une entreprise" 
-              color="#FFB455"
-              fontColor="black"
-            />
         </View>      
 
         <View style={{alignItems: 'center', width:'100%', margin: 15}}>
             <Button
-              onPress={() => navigation.navigate("CreationProfil1")}
+              onPress={() => navigation.navigate("CreationProfil")}
               title="Continuer" 
               color="#595959"
             />

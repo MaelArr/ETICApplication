@@ -2,21 +2,24 @@ import React from 'react';
 import { StyleSheet, Image, TouchableOpacity, Text, View } from 'react-native';
  
 export default function FlatButton(props) {
-  return (
-    <TouchableOpacity style={styles.element} onPress={props.onPress}>
-        <View style={[styles.button, {backgroundColor:props.color}]}>
-          {image(props)}
-          <View style={{flexDirection: "column"}}>
-            <Text style={[styles.buttonText, {color: props.fontColor}]}>{props.text}</Text>
-            {littleText(props)}
+  if(props.text != null){
+    return (
+      <TouchableOpacity style={styles.element} onPress={props.onPress}>
+          <View style={[styles.button, {backgroundColor:props.color}]}>
+            {image(props)}
+            <View style={{flexDirection: "column"}}>
+              <Text style={[styles.buttonText, {color: props.fontColor}]}>{props.text}</Text>
+              {littleText(props)}
+            </View>
           </View>
-        </View>
-    </TouchableOpacity>
-  );
+      </TouchableOpacity>
+    );
+  }else{
+    return null;
+  }
 }
 
 function littleText(props) {
-  console.log(props);
   if(props.littleText == null){
     return null;
   }else{
@@ -26,8 +29,7 @@ function littleText(props) {
   }
 }
 
-function image(props) {
-  console.log(props);
+function image(props) { 
   if(props.source == null){
     return null;
   }else{

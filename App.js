@@ -5,7 +5,9 @@ import LoadingApp from "./Navigation/LoadingApp"
 import Travmeejoy from "./Navigation/Travmeejoy";
 import LogIn from "./Navigation/LogIn";
 import SignIn from "./Navigation/SignIn";
-import CreationProfil1 from "./Navigation/CreationProfil1";
+import CreationProfil from "./Navigation/CreationProfil";
+import CreationProfilSlides from "./Navigation/CreationProfilSlides";
+import Home from './Navigation/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +19,9 @@ export default function App() {
         <Stack.Screen name="LoadingApp" component={LoadingApp} /> 
         <Stack.Screen name="LogIn" component={LogIn} /> 
         <Stack.Screen name="SignIn" component={SignIn} />  
-        <Stack.Screen name="CreationProfil1" component={CreationProfil1} />        
+        <Stack.Screen name="CreationProfil" component={CreationProfil} />
+        <Stack.Screen name="CreationProfilSlides" component={CreationProfilSlides} /> 
+        <Stack.Screen name="Home" component={Home} />        
       </Stack.Navigator>
     </NavigationContainer>
   );

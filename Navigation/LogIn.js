@@ -9,7 +9,7 @@ const LogIn = ({navigation}, props) => {
 
         <Image source={require('../images/Travmeejoy.png')} />
 
-        <Text>BienvenueLogIn</Text>
+        <Text>Bienvenue</Text>
 
         <View style={{alignItems: 'center', width:'100%'}}>
             <TextInputPerso placeholder="E-mail, pseudo ou téléphone" icon="mail"/>
@@ -40,7 +40,7 @@ const LogIn = ({navigation}, props) => {
         <View  style={{alignItems: 'center', width:'100%'}}>
           <Text>Pas encore de compte ?</Text>
           <Pressable onPress={() => navigation.navigate("SignIn")}>
-            <Text>Inscription</Text>
+            <Text style={{color: "purple"}}>Inscription</Text>
           </Pressable>
         </View>
       </View>
