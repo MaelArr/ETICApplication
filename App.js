@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoadingApp from "./Navigation/LoadingApp"
 import Travmeejoy from "./Navigation/Travmeejoy";
 import LogIn from "./Navigation/LogIn";
-import SignIn from "./Navigation/SignIn";
+import SignIn from "./Navigation/SignUp";
 import CreationProfil from "./Navigation/CreationProfil";
 import CreationProfilSlides from "./Navigation/CreationProfilSlides";
 import Home from './Navigation/Home';

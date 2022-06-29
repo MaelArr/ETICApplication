@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { StyleSheet, TextInput, View} from 'react-native';
+import { StyleSheet, TextInput, View, Dimensions} from 'react-native';
 import {Icon} from '@rneui/themed';
  
 export default function TextInputPerso(props) {
@@ -8,7 +8,14 @@ export default function TextInputPerso(props) {
     return (
       <View style={styles.searchSection}>
           <Icon style={styles.searchIcon} name={props.icon} size={20} color="#000"/>
-          <TextInput placeholder={props.placeholder}  style={styles.input} secureTextEntry={passwordVisible} keyboardType={props.keyboardType}/>
+          <TextInput
+          placeholder={props.placeholder} 
+          value={props.value}
+          onChangeText={props.onChangeText} 
+          style={styles.input} 
+          autoCapitalize={props.autoCapitalize}
+          secureTextEntry={passwordVisible} 
+          keyboardType={props.keyboardType}/>
           <Icon style={styles.searchIcon} name={passwordVisible ? "visibility-off" : "visibility"} onPress={() => setPasswordVisible(!passwordVisible)} />
       </View>
         ); 
@@ -17,16 +24,26 @@ export default function TextInputPerso(props) {
       return (
         <View style={styles.searchSection}>
             <Icon style={styles.searchIcon} name={props.icon} size={20} color="#000"/>
-            <TextInput placeholder={props.placeholder}  style={styles.input}  keyboardType={props.keyboardType}/>
+            <TextInput 
+            placeholder={props.placeholder} 
+            value={props.value} 
+            onChangeText={props.onChangeText}
+            autoCapitalize={props.autoCapitalize} 
+            style={styles.input}  
+            keyboardType={props.keyboardType}/>
         </View>
           ); 
   }
 }
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
  
 const styles = StyleSheet.create({
   searchSection: {
     width: '80%',
-    margin: 15,
+    marginTop: windowHeight/50,
+    marginBottom: windowHeight/50,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

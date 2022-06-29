@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Image, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, Image, TouchableOpacity, Text, View, Dimensions } from 'react-native';
  
 export default function FlatButton(props) {
+  
   if(props.text != null){
     return (
       <TouchableOpacity style={styles.element} onPress={props.onPress}>
@@ -37,21 +38,27 @@ function image(props) {
     <Image style={styles.image} source={props.source} />    ); 
   }
 }
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
  
 const styles = StyleSheet.create({
   image: {
-    marginRight: 40
+    resizeMode: "contain",
+    marginRight:  windowWidth/10
   },
     element:{
-      margin: 15,
-      width: '90%'
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: windowHeight/50,
+      marginBottom: windowHeight/50
     },
     button: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
-        height: 60,
+        height: windowHeight/15,
+        width: windowWidth/1.3,
         borderRadius: 8,
         paddingVertical: 14,
         paddingHorizontal: 10,
@@ -59,11 +66,12 @@ const styles = StyleSheet.create({
     buttonText: {
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        fontSize: 16,
+        fontSize: windowHeight/60,
         textAlign: 'center',
+        justifyContent: 'center'
     },
     buttonLittleText: {
-      fontSize: 12,
+      fontSize: windowHeight/80,
       textAlign: 'center',
     }
 });

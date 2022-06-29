@@ -1,21 +1,48 @@
 import React from "react";
-import { Image, View, Button, Text, TouchableOpacity} from "react-native";
+import { Image, View, Button, Text, TouchableOpacity, Dimensions} from "react-native";
 import { useState } from "react";
 import { Icon } from "@rneui/themed";
 import * as ImagePicker from 'expo-image-picker';
 import PickerSelect from 'react-native-picker-select';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { firebase } from "../firebase";
 
 const CreationProfil = ({navigation}, props) => {
+  const dataBase = firebase.firestore().collection("informationsUser");
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
   const [image, setImage] = useState(null);
   const [date, setDate] = useState(new Date("01/01/2001"));
   const [show, setShow] = useState(false);
+  const [genre, setGenre] = useState("");
+  const [pays, setPays] = useState("");
+  const [langue, setLangue] = useState("");
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
   };
+
+  const handleAddData = () => {
+    dataBase.doc(firebase.auth().currentUser?.email)
+    .update({
+        image: image,
+        date: date,
+        genre: genre,
+        pays: pays,
+        langue: langue,
+    }) 
+    .then(() => {
+      console.log("Document successfully updated!");
+    })
+    .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
+
+    navigation.replace("CreationProfilSlides");
+}
 
   const showDatePicker = () => {
     setShow(true);
@@ -36,19 +63,19 @@ const CreationProfil = ({navigation}, props) => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={{alignItems: "center", justifyContent: "center", width: windowWidth, height: windowHeight }}>
 
-        <Image source={require('../images/Travmeejoy.png')} />
+        <Image style={{resizeMode: "contain", width: windowWidth*0.8}} source={require('../images/Travmeejoy.png')} />
 
-        <View style={{alignItems: 'center', width:'100%', marginTop: 15}}>
-              {photoProfil(image)}
-              <View style={{zIndex: 1, position: "relative", top: -40, left: 60, backgroundColor: "#FFFFFF", width: 40, height: 40, borderRadius: 20, alignItems: "center", justifyContent: "center"}}>
+        <View style={{alignItems: 'center', justifyContent: "center"}}>
+              {photoProfil(image, windowWidth, windowHeight)}
+              <View style={{zIndex: 1, position: "relative", top: -windowHeight/15, left: windowWidth/6, backgroundColor: "#FFFFFF", width: windowWidth/8, height: windowWidth/8, borderRadius: windowWidth/16, alignItems: "center", justifyContent: "center"}}>
                 <Icon style={{position: "relative"}} type="material" name="photo-camera" color="#FF1A6C" onPress={pickImage}/>
               </View>
             
         </View>
 
-        <View style={{alignItems: 'center', width:'100%', marginBottom: 30}}><Text>Création de votre profil</Text></View>
+        <View style={{alignItems: 'center', marginBottom: windowHeight/30, marginTop:-windowHeight/30}}><Text>Création de votre profil</Text></View>
 
         <View>
             <TouchableOpacity onPress={showDatePicker} title="Clique pour choisir ta date de naissance !" >
@@ -56,18 +83,6 @@ const CreationProfil = ({navigation}, props) => {
               {show && (
                 <DateTimePicker
                   testID="dateTimePicker"
-                  customStyles={{
-                    dateIcon: {
-                      //display: 'none',
-                      position: 'absolute',
-                      left: 0,
-                      top: 4,
-                      marginLeft: 0,
-                    },
-                    dateInput: {
-                      marginLeft: 36,
-                    },
-                  }}
                   value={date}
                   mode={"date"}
                   is24Hour={true}
@@ -77,39 +92,39 @@ const CreationProfil = ({navigation}, props) => {
             </ TouchableOpacity>
         </View>
         
-        <View style={{alignItems: 'center', width:'100%', margin: 15}}>
+        <View style={{alignItems: 'center', width:'100%'}}>
             <PickerSelect
                  placeholder={{ label: "Genre", value: null }}
-                 onValueChange={(value) => console.log(value)}
+                 onValueChange={(value) => setGenre(value)}
                  items={[
-                     { label: "Homme", value: "H" },
-                     { label: "Femme", value: "F" },
-                     { label: "Autre", value: "A" }
+                     { label: "Homme", value: "Homme" },
+                     { label: "Femme", value: "Femme" },
+                     { label: "Autre", value: "Autre" }
                  ]}
              />
              <PickerSelect
                  placeholder={{ label: "Pays", value: null }}
-                 onValueChange={(value) => console.log(value)}
+                 onValueChange={(value) => setPays(value)}
                  items={[
-                     { label: "France", value: "Fr" },
-                     { label: "Espagne", value: "Esp" },
-                     { label: "Italie", value: "It" }
+                     { label: "France", value: "France" },
+                     { label: "Espagne", value: "Espagne" },
+                     { label: "Italie", value: "Italie" }
                  ]}
              /> 
             <PickerSelect
                  placeholder={{ label: "Langue d'origine", value: null }}
-                 onValueChange={(value) => console.log(value)}
+                 onValueChange={(value) => setLangue(value)}
                  items={[
-                     { label: "Français", value: "Fr" },
-                     { label: "Espagnol", value: "Esp" },
-                     { label: "Italien", value: "It" }
+                     { label: "Français", value: "Français" },
+                     { label: "Espagnol", value: "Espagnol" },
+                     { label: "Italien", value: "Italien" }
                  ]}
              /> 
         </View>    
 
-        <View style={{alignItems: 'center', width:'100%', margin: 15}}>
+        <View style={{alignItems: 'center', width:'100%'}}>
             <Button
-              onPress={() => navigation.navigate("CreationProfilSlides")}
+              onPress={() => handleAddData()}
               title="Continuer" 
               color="#FF1A6C"
             />
@@ -118,11 +133,11 @@ const CreationProfil = ({navigation}, props) => {
   );
 };
 
-function photoProfil(image){
+function photoProfil(image, windowWidth){
   if(image){
-    return <Image source={{ uri: image }} style={{backgroundColor: "#595959", width: 200, height: 200, borderRadius: 100}} />
+    return <Image source={{ uri: image }} style={{backgroundColor: "#595959", width: windowWidth/2, height: windowWidth/2, borderRadius: windowWidth/4}} />
   }else{
-    return <View style={{backgroundColor: "#595959", width: 200, height: 200, borderRadius: 100}}></View>
+    return <View style={{backgroundColor: "#595959",width: windowWidth/2, height: windowWidth/2, borderRadius: windowWidth/4}}></View>
   }
 }
 

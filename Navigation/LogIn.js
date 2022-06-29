@@ -1,19 +1,57 @@
-import React from "react";
-import { Image, View, Text, Pressable, Button} from "react-native";
+import React, {useEffect, useState} from "react";
+import { Image, View, Text, Pressable, Button, Dimensions} from "react-native";
 import FlatButton from "../components/FlatButton";
 import TextInputPerso from "../components/TextInputPerso";
+import { firebase } from "../firebase";
 
 const LogIn = ({navigation}, props) => {
-  return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-        <Image source={require('../images/Travmeejoy.png')} />
+  const handleLogIn = () => {
+    firebase.auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(userCredentials => {
+      const user = userCredentials.user;
+      
+      console.log("Logged in with : ", user.email);
+    })
+    .catch(error => alert(error.message))
+  }
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        navigation.replace("Home")
+      }
+    })
+
+    return unsubscribe
+  }, [])
+
+  return (
+      <View style={{alignItems: "center", justifyContent: "center", width: windowWidth, height: windowHeight }}>
+
+        <Image style={{resizeMode: "contain", width: windowWidth*0.8}} source={require('../images/Travmeejoy.png')} />
 
         <Text>Bienvenue</Text>
 
         <View style={{alignItems: 'center', width:'100%'}}>
-            <TextInputPerso placeholder="E-mail, pseudo ou téléphone" icon="mail"/>
-            <TextInputPerso placeholder="Mot de passe" secureTextEntry={true} icon="lock"/> 
+            <TextInputPerso
+            placeholder="E-mail, pseudo ou téléphone"
+            value={email}
+            autoCapitalize = "none"
+            onChangeText={text => setEmail(text)}
+            icon="mail"/>
+            <TextInputPerso
+            placeholder="Mot de passe"
+            value={password}
+            autoCapitalize = "none"
+            onChangeText={text => setPassword(text)}
+            secureTextEntry={true}
+            icon="lock"/> 
         </View>
         
 
@@ -26,7 +64,7 @@ const LogIn = ({navigation}, props) => {
 
         <View style={{alignItems: 'center', width:'100%'}}>
             <Button
-              onPress={() => navigation.navigate("")}
+              onPress={handleLogIn}
               title="Connexion"
               color="#595959"
             />

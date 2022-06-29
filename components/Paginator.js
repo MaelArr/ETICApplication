@@ -4,6 +4,7 @@ import dataCreationProfil from "./dataCreationProfil";
 
 const Paginator = ({date, scrollX}) => {
     const {width} = useWindowDimensions();
+    console.log("paginator");
 
   return (
     <View style={{flexDirection: "row", height: 64}}>

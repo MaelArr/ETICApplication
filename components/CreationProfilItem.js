@@ -1,29 +1,23 @@
 import React from "react";
-import { Image, View, Text, useWindowDimensions} from "react-native";
+import { Image, View, Text, useWindowDimensions, Dimensions} from "react-native";
 import FlatButton from "./FlatButton";
 
 const CreationProfilItem = ({navigation, item}) => {
-    console.log("navigation : ");
-    console.log(navigation);
-    const {width} = useWindowDimensions();
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+
+    console.log("item");
     
-    const image = (item) => {
-        if(item.id != "3"){
-            return <Image style={{flex: 0.3, width: "80%", borderRadius: 100, marginTop: 50}} source={item.image} />
-        }else{
-            return <Image style={{height: "40%", width: "61%"}} source={item.image} />
-        }
-    };
     const buttons  = (item) => {
         if(item.id == "2"){
             return (
-                <View style={[{flex: 0.3},{width, marginTop: 100}]}>
+                <View>
                     <FlatButton text={item.buttonMain} onPress={() => alert("Not implemented")} color="#FF1A6C" fontColor="white"/>
                 </View>
             );
         }else if(item.id == "3"){
             return (
-                <View style={[{flex: 0.3, alignItems: "center", justifyContent: "center"},{width, marginTop: 100}]}>
+                <View style={{alignItems: "center", height: windowHeight/3, top: -windowHeight/20}}>
                     <FlatButton text={item.buttonMain} onPress={() => alert("Not implemented")} color="#FF1A6C" fontColor="white"/>
                     <Text>ou</Text>
                     <FlatButton text="Saisir une ville" onPress={() => alert("Not implemented")} color="white" fontColor="black"/>
@@ -31,18 +25,18 @@ const CreationProfilItem = ({navigation, item}) => {
             );
         }else if(item.id == "4"){
             return(
-            <View style={[{flex: 0.3},{width, marginTop: 100}]}>
-                <FlatButton text={item.buttonMain} onPress={() => navigation.navigate("Home")} color="#FF1A6C" fontColor="white"/>
+            <View>
+                <FlatButton text={item.buttonMain} onPress={() => navigation.replace("Home")} color="#FF1A6C" fontColor="white"/>
             </View>
             );
         }
     };
   return (
-    <View style={{flex: 1, alignItems: "center", justifyContent: "center", flexDirection: "column"}}>
-        {image(item)}
-        <View style={[{flex: 0.3},{width}]}>
-            <Text style={{fontWeight: "800", fontSize: 28, marginTop: 10, textAlign: "center"}}>{item.title}</Text>
-            <Text style={{fontWeight: "300", textAlign: "center", paddingHorizontal: 64}}>{item.description}</Text>
+    <View style={{alignItems: "center", justifyContent: "center", flexDirection: "column", width: windowWidth, height: windowHeight}}>
+        <Image style={{height: windowHeight/3, resizeMode: "contain", width: windowWidth*0.8}} source={item.image} />
+        <View style={{height: windowHeight/3}}>
+            <Text style={{fontWeight: "800", fontSize: 28, textAlign: "center"}}>{item.title}</Text>
+            <Text style={{fontWeight: "300", textAlign: "center", width: windowWidth}}>{item.description}</Text>
         </View>
         {buttons(item)}
     </View>
