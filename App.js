@@ -8,6 +8,7 @@ import SignIn from "./Navigation/SignUp";
 import CreationProfil from "./Navigation/CreationProfil";
 import CreationProfilSlides from "./Navigation/CreationProfilSlides";
 import Home from './Navigation/Home';
+import Profil from './Navigation/Profil';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,8 @@ export default function App() {
         <Stack.Screen name="SignIn" component={SignIn} />  
         <Stack.Screen name="CreationProfil" component={CreationProfil} />
         <Stack.Screen name="CreationProfilSlides" component={CreationProfilSlides} /> 
-        <Stack.Screen name="Home" component={Home} />        
+        <Stack.Screen name="Home" component={Home} />  
+        <Stack.Screen name="Profil" component={Profil} />        
       </Stack.Navigator>
     </NavigationContainer>
   );

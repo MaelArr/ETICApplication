@@ -60,7 +60,7 @@ const Home = ({navigation}, props) => {
             <TouchableOpacity style={{alignItems: "center", backgroundColor: "red"}} onPress={handleSignOut}>
                 <Text>Sign out</Text>
             </TouchableOpacity>
-            <BottomBar />
+            <BottomBar navigation={navigation}/>
         </View>
         
     );

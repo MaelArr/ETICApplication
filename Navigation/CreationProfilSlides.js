@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {View, FlatList, Animated} from "react-native";
+import {View, FlatList, Animated, Image} from "react-native";
 import dataCreationProfil from "./../components/dataCreationProfil";
 import CreationProfilItem from "./../components/CreationProfilItem";
 import Paginator from "./../components/Paginator";

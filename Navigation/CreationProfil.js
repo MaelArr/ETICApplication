@@ -59,6 +59,7 @@ const CreationProfil = ({navigation}, props) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      console.log(result.uri)
     }
   };
 
@@ -72,7 +73,6 @@ const CreationProfil = ({navigation}, props) => {
               <View style={{zIndex: 1, position: "relative", top: -windowHeight/15, left: windowWidth/6, backgroundColor: "#FFFFFF", width: windowWidth/8, height: windowWidth/8, borderRadius: windowWidth/16, alignItems: "center", justifyContent: "center"}}>
                 <Icon style={{position: "relative"}} type="material" name="photo-camera" color="#FF1A6C" onPress={pickImage}/>
               </View>
-            
         </View>
 
         <View style={{alignItems: 'center', marginBottom: windowHeight/30, marginTop:-windowHeight/30}}><Text>Création de votre profil</Text></View>

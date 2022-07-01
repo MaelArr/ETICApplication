@@ -3,7 +3,7 @@ import { StyleSheet, Image, TouchableOpacity, Text, View } from 'react-native';
 import { Icon } from "@rneui/themed";
 import { firebase } from '../firebase';
 
-const BottomBar = (props) => {
+const BottomBar = ({navigation}, props) => {
     const document = firebase.firestore().collection("informationsUser").doc(firebase.auth().currentUser?.email);
     var [data, setData] = useState("a");
 
@@ -22,8 +22,6 @@ const BottomBar = (props) => {
             console.log("Error getting cached document:", error);
         });
       }, [])
-    
-    console.log(data.image);
 
     return (
     <View style={{alignItems: "flex-end", justifyContent: "center", flexDirection: "row", height: "15%"}}> 
@@ -35,7 +33,7 @@ const BottomBar = (props) => {
             <View style={{flex: 0.20, alignItems: "center", justifyContent: "center"}}>
                 <Icon type="foundation" name="compass" onPress={() => alert("explorer")}/>
                 <Text>Explorer</Text>
-            </View>
+            </View> 
             <View style={{flex: 0.20, bottom: 35}}>
                 <Icon size={50} type="antdesign" name="pluscircle" color={"#DE1960"} onPress={() => alert("plus")}/>
             </View>
@@ -44,8 +42,10 @@ const BottomBar = (props) => {
                 <Text>Maps</Text>
             </View>
             <View style={{flex: 0.20, alignItems: "center", justifyContent: "center"}}>
-                <TouchableOpacity onPress={() => alert("profil")}>
-                    <Image source={{ uri: "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Fmy-app-6b0014d5-9f9b-45e4-af74-e4166aaf99fb/ImagePicker/d7f41bf5-b8ce-4a29-b702-046c9418adb1.jpg" }} style={{backgroundColor: "black"}}/>
+                <TouchableOpacity onPress={() => navigation.replace("Profil")}>
+                    <Image
+                    source={{ uri: data.image}}
+                    style={{backgroundColor: "black", width: 40, height: 40, borderRadius: 20}}/>
                 </TouchableOpacity> 
                 <Text>Profil</Text>
             </View>
