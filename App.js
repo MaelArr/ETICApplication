@@ -9,6 +9,7 @@ import CreationProfil from "./Navigation/CreationProfil";
 import CreationProfilSlides from "./Navigation/CreationProfilSlides";
 import Home from './Navigation/Home';
 import Profil from './Navigation/Profil';
+import ChatExample from './Navigation/ChatExample';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +24,8 @@ export default function App() {
         <Stack.Screen name="CreationProfil" component={CreationProfil} />
         <Stack.Screen name="CreationProfilSlides" component={CreationProfilSlides} /> 
         <Stack.Screen name="Home" component={Home} />  
-        <Stack.Screen name="Profil" component={Profil} />        
+        <Stack.Screen name="Profil" component={Profil} />   
+        <Stack.Screen name="ChatExample" component={ChatExample} />        
       </Stack.Navigator>
     </NavigationContainer>
   );
